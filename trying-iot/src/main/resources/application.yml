@@ -1,1 +1,6 @@
 delay-in-milliseconds: 1000
+
+mqtt:
+  url: tcp://localhost:1883
+  topic: temperature
+  qos: 1
