@@ -25,7 +25,8 @@ public class SenderJob {
 
     @Scheduled(fixedDelayString = "${delay-in-milliseconds}")
     public void execute() {
-        String content = String.valueOf(getRandomIntegerBetweenRange(30, 40));
+        String content = "{ \"temperature\": \"##\"}";
+        content = content.replace("##", String.valueOf(getRandomIntegerBetweenRange(30, 40)));
 
         try {
             connect();
