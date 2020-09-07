@@ -8,10 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Service
-public class MedianOperation implements Operation {
+public class AverageOperation implements Operation {
 
     @Autowired
     private TemperatureRepository repository;
@@ -26,21 +25,15 @@ public class MedianOperation implements Operation {
             temperatures = repository.findAllByCreatedAtBetween(request.getFrom(), request.getTo());
         }
 
-        IntStream intStream = temperatures
+        return temperatures
                 .stream()
                 .mapToInt(Temperature::getValue)
-                .sorted();
-
-        if(temperatures.size() % 2 == 0) {
-            return intStream.skip(temperatures.size()/2-1).limit(2).average().getAsDouble();
-        }
-
-        return Double.valueOf(intStream.skip(temperatures.size()/2).findFirst().getAsInt());
+                .average().getAsDouble();
     }
 
     @Override
     public SearchOperation getSearchOperation() {
-        return SearchOperation.MEDIAN;
+        return SearchOperation.AVG;
     }
 
 }

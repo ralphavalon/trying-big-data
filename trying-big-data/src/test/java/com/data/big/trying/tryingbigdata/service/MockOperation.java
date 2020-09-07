@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public class MockOperation implements Operation {
 
     @Override
-    public Long process(TemperatureSearchRequest request) {
-        return 0L;
+    public Double process(TemperatureSearchRequest request) {
+        return 0D;
     }
 
     @Override

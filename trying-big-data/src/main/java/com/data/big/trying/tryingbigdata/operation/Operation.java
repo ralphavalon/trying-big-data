@@ -5,7 +5,7 @@ import com.data.big.trying.tryingbigdata.domain.SearchOperation;
 
 public interface Operation {
 
-    Long process(TemperatureSearchRequest request);
+    Double process(TemperatureSearchRequest request);
 
     SearchOperation getSearchOperation();
 

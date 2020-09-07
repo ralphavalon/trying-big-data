@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class TemperatureSearchResponse {
 
-    private Long result;
+    private Double result;
 
 }

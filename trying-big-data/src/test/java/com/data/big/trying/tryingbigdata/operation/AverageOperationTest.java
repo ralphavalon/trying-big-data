@@ -19,19 +19,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.data.big.trying.tryingbigdata.helper.TemperatureHelper.*;
+import static com.data.big.trying.tryingbigdata.helper.TemperatureHelper.getTemperaturesEvenSize;
+import static com.data.big.trying.tryingbigdata.helper.TemperatureHelper.getTemperaturesOddSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = MedianOperation.class)
-public class MedianOperationTest {
+@SpringBootTest(classes = AverageOperation.class)
+public class AverageOperationTest {
 
     @MockBean
     TemperatureRepository repository;
 
     @Autowired
-    MedianOperation operation;
+    AverageOperation operation;
 
     TemperatureSearchRequest mock;
 
@@ -72,13 +73,13 @@ public class MedianOperationTest {
 
     @Test
     public void testSearchOperation() {
-        assertEquals(SearchOperation.MEDIAN, operation.getSearchOperation());
+        assertEquals(SearchOperation.AVG, operation.getSearchOperation());
     }
 
     static Stream<Arguments> temperaturesSource() {
         return Stream.of(
-                Arguments.of(getTemperaturesEvenSize(), 36D),
-                Arguments.of(getTemperaturesOddSize(), 37D)
+                Arguments.of(getTemperaturesEvenSize(), 35.666666666666664D),
+                Arguments.of(getTemperaturesOddSize(), 35.8)
         );
     }
 

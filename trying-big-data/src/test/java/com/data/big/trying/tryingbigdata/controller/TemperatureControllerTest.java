@@ -31,7 +31,7 @@ public class TemperatureControllerTest {
 
     @Test
     public void shouldSearchTemperature() throws Exception {
-        when(service.processSearch(any(TemperatureSearchRequest.class))).thenReturn(4L);
+        when(service.processSearch(any(TemperatureSearchRequest.class))).thenReturn(4D);
         String request = JsonHelper.loadTemperatureRequest("search");
         String response = JsonHelper.loadTemperatureResponse("search");
 

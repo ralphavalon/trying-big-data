@@ -32,7 +32,7 @@ public class TemperatureServiceTest {
         when(mock.getFrom()).thenReturn(LocalDateTime.now());
         when(mock.getTo()).thenReturn(LocalDateTime.now().plusSeconds(1));
 
-        Long response = service.processSearch(mock);
+        Double response = service.processSearch(mock);
 
         assertEquals(0L, response);
         verify(mockOperation).process(mock);

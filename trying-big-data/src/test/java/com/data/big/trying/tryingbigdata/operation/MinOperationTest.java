@@ -43,7 +43,7 @@ public class MinOperationTest {
         when(repository.findAllByUserIdAndCreatedAtBetween(eq("userId"), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(getTemperaturesEvenSize());
 
-        Long response = operation.process(mock);
+        Double response = operation.process(mock);
 
         assertEquals(30L, response);
         verify(repository, times(0)).findAllByCreatedAtBetween(mock.getFrom(), mock.getTo());
@@ -55,7 +55,7 @@ public class MinOperationTest {
         when(repository.findAllByCreatedAtBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(getTemperaturesEvenSize());
 
-        Long response = operation.process(mock);
+        Double response = operation.process(mock);
 
         assertEquals(30L, response);
         verify(repository, times(1)).findAllByCreatedAtBetween(mock.getFrom(), mock.getTo());

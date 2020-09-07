@@ -42,7 +42,7 @@ public class CountOperationTest {
         when(repository.countByUserIdAndCreatedAtBetween(eq("userId"), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(3L);
 
-        Long response = operation.process(mock);
+        Double response = operation.process(mock);
 
         assertEquals(3L, response);
         verify(repository, times(0)).countByCreatedAtBetween(mock.getFrom(), mock.getTo());
@@ -54,7 +54,7 @@ public class CountOperationTest {
         when(repository.countByCreatedAtBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(5L);
 
-        Long response = operation.process(mock);
+        Double response = operation.process(mock);
 
         assertEquals(5L, response);
         verify(repository, times(1)).countByCreatedAtBetween(mock.getFrom(), mock.getTo());

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TemperatureService {
 
-    public Long processSearch(TemperatureSearchRequest request) {
+    public Double processSearch(TemperatureSearchRequest request) {
         Operation processor = OperationConfig.getProcessor(request.getSearchOperation());
         return processor.process(request);
     }

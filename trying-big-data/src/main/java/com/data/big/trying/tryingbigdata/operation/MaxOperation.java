@@ -16,7 +16,7 @@ public class MaxOperation implements Operation {
     private TemperatureRepository repository;
 
     @Override
-    public Long process(TemperatureSearchRequest request) {
+    public Double process(TemperatureSearchRequest request) {
         List<Temperature> temperatures = null;
 
         if(request.getUserId() != null) {
@@ -25,7 +25,7 @@ public class MaxOperation implements Operation {
             temperatures = repository.findAllByCreatedAtBetween(request.getFrom(), request.getTo());
         }
 
-        return Long.valueOf(temperatures
+        return Double.valueOf(temperatures
                 .stream().max((t1, t2) -> t1.getValue().compareTo(t2.getValue())).get().getValue());
     }
 
