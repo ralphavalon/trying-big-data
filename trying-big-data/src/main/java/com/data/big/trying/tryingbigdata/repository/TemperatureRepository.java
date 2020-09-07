@@ -10,6 +10,9 @@ public interface TemperatureRepository extends MongoRepository<Temperature, Stri
 
     long countByCreatedAtBetween(LocalDateTime from, LocalDateTime to);
 
+    long countByUserIdAndCreatedAtBetween(String userId, LocalDateTime from, LocalDateTime to);
+
     List<Temperature> findAllByCreatedAtBetween(LocalDateTime from, LocalDateTime to);
 
+    List<Temperature> findAllByUserIdAndCreatedAtBetween(String userId, LocalDateTime from, LocalDateTime to);
 }

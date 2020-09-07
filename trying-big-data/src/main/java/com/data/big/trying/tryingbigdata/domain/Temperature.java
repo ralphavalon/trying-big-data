@@ -13,7 +13,7 @@ public class Temperature {
 
     private String userId;
     @Field("temperature")
-    private String value;
+    private Integer value;
     private LocalDateTime createdAt;
 
 }
