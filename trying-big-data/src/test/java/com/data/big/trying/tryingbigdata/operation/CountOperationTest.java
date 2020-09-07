@@ -3,6 +3,7 @@ package com.data.big.trying.tryingbigdata.operation;
 import com.data.big.trying.tryingbigdata.controller.request.TemperatureSearchRequest;
 import com.data.big.trying.tryingbigdata.domain.SearchOperation;
 import com.data.big.trying.tryingbigdata.repository.TemperatureRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,19 @@ public class CountOperationTest {
     @Autowired
     CountOperation operation;
 
-    @Test
-    public void testCountWithUserId() {
-        TemperatureSearchRequest mock = mock(TemperatureSearchRequest.class);
-        when(mock.getUserId()).thenReturn("userId");
+    TemperatureSearchRequest mock;
+
+    @BeforeEach
+    public void setup() {
+        mock = mock(TemperatureSearchRequest.class);
         when(mock.getFrom()).thenReturn(LocalDateTime.now());
         when(mock.getTo()).thenReturn(LocalDateTime.now().plusSeconds(1));
+    }
+
+    @Test
+    public void testCountWithUserId() {
+        when(mock.getUserId()).thenReturn("userId");
+
         when(repository.countByUserIdAndCreatedAtBetween(eq("userId"), any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(3L);
 
@@ -43,10 +51,6 @@ public class CountOperationTest {
 
     @Test
     public void testCountWithoutUserId() {
-        TemperatureSearchRequest mock = mock(TemperatureSearchRequest.class);
-        when(mock.getFrom()).thenReturn(LocalDateTime.now());
-        when(mock.getTo()).thenReturn(LocalDateTime.now().plusSeconds(1));
-
         when(repository.countByCreatedAtBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
                 .thenReturn(5L);
 
