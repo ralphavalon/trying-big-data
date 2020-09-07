@@ -8,8 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 
-//@Document(collection = "temperature")
-@Document(collection = "mycollection")
+@Document(collection = "temperature")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
