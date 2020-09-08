@@ -47,27 +47,27 @@ public class MedianOperationTest {
     public void testMedianWithUserId(List<Temperature> temperatures, Double expectedResponse) {
         when(mock.getUserId()).thenReturn("userId");
 
-        when(repository.findAllByUserIdAndCreatedAtBetween(eq("userId"), any(LocalDateTime.class), any(LocalDateTime.class)))
+        when(repository.findAllByUserIdAndCreatedAtBetween(eq("userId"), any(Long.class), any(Long.class)))
                 .thenReturn(temperatures);
 
         Double response = operation.process(mock);
 
         assertEquals(expectedResponse, response);
-        verify(repository, times(0)).findAllByCreatedAtBetween(mock.getFrom(), mock.getTo());
-        verify(repository, times(1)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFrom(), mock.getTo());
+        verify(repository, times(0)).findAllByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(1)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
     }
 
     @ParameterizedTest
     @MethodSource("temperaturesSource")
     public void testMedianWithoutUserId(List<Temperature> temperatures, Double expectedResponse) {
-        when(repository.findAllByCreatedAtBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
+        when(repository.findAllByCreatedAtBetween(any(Long.class), any(Long.class)))
                 .thenReturn(temperatures);
 
         Double response = operation.process(mock);
 
         assertEquals(expectedResponse, response);
-        verify(repository, times(1)).findAllByCreatedAtBetween(mock.getFrom(), mock.getTo());
-        verify(repository, times(0)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFrom(), mock.getTo());
+        verify(repository, times(1)).findAllByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(0)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
     }
 
     @Test

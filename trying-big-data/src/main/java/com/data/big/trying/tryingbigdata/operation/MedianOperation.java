@@ -21,9 +21,9 @@ public class MedianOperation implements Operation {
         List<Temperature> temperatures = null;
 
         if(request.getUserId() != null) {
-            temperatures = repository.findAllByUserIdAndCreatedAtBetween(request.getUserId(), request.getFrom(), request.getTo());
+            temperatures = repository.findAllByUserIdAndCreatedAtBetween(request.getUserId(), request.getFromAsMillis(), request.getToAsMillis());
         } else {
-            temperatures = repository.findAllByCreatedAtBetween(request.getFrom(), request.getTo());
+            temperatures = repository.findAllByCreatedAtBetween(request.getFromAsMillis(), request.getToAsMillis());
         }
 
         IntStream intStream = temperatures

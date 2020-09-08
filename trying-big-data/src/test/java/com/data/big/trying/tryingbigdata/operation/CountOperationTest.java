@@ -39,26 +39,26 @@ public class CountOperationTest {
     public void testCountWithUserId() {
         when(mock.getUserId()).thenReturn("userId");
 
-        when(repository.countByUserIdAndCreatedAtBetween(eq("userId"), any(LocalDateTime.class), any(LocalDateTime.class)))
+        when(repository.countByUserIdAndCreatedAtBetween(eq("userId"), any(Long.class), any(Long.class)))
                 .thenReturn(3L);
 
         Double response = operation.process(mock);
 
         assertEquals(3L, response);
-        verify(repository, times(0)).countByCreatedAtBetween(mock.getFrom(), mock.getTo());
-        verify(repository, times(1)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFrom(), mock.getTo());
+        verify(repository, times(0)).countByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(1)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
     }
 
     @Test
     public void testCountWithoutUserId() {
-        when(repository.countByCreatedAtBetween(any(LocalDateTime.class), any(LocalDateTime.class)))
+        when(repository.countByCreatedAtBetween(any(Long.class), any(Long.class)))
                 .thenReturn(5L);
 
         Double response = operation.process(mock);
 
         assertEquals(5L, response);
-        verify(repository, times(1)).countByCreatedAtBetween(mock.getFrom(), mock.getTo());
-        verify(repository, times(0)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFrom(), mock.getTo());
+        verify(repository, times(1)).countByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(0)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.data.big.trying.tryingbigdata.domain.Temperature;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class TemperatureHelper {
@@ -30,6 +31,6 @@ public class TemperatureHelper {
     }
 
     private static Temperature temperature(Integer value) {
-        return new Temperature("userId", value, LocalDateTime.now());
+        return new Temperature("userId", value, new Date().toInstant().toEpochMilli());
     }
 }

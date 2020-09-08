@@ -1,7 +1,7 @@
 # ========================= DEPENDENCY RESOLVER =========================
 # Download the dependencies on container
 # =======================================================================
-FROM maven:3-jdk-8-slim AS dependency_resolver
+FROM maven:3-jdk-11-slim AS dependency_resolver
 
 # Download all library dependencies
 COPY ./pom.xml /app/pom.xml
@@ -13,7 +13,7 @@ RUN mvn dependency:copy-dependencies $MAVEN_CLI_OPTS
 # ========================= TESTER ======================================
 # Run tests on container
 # =======================================================================
-FROM maven:3-jdk-8-slim AS tester
+FROM dependency_resolver AS tester
 
 # Create user for tests
 RUN mkdir -p /home/test_user/.m2/repository
@@ -40,10 +40,10 @@ RUN mvn package $MAVEN_CLI_OPTS -Dmaven.test.skip=true
 # ========================= DOCKER IMAGE ================================
 # Prepare container image with application artifacts and runtime environment
 # =======================================================================
-# FROM openjdk:8-jre-slim
-#
-# VOLUME /tmp
-#
-# COPY --from=builder /app/target/*.jar app.jar
-#
-# ENTRYPOINT [ "sh", "-c", "java -jar /app.jar" ]
+FROM openjdk:11-jre-slim
+
+VOLUME /tmp
+
+COPY --from=builder /app/target/*.jar app.jar
+
+ENTRYPOINT [ "sh", "-c", "java -jar /app.jar" ]
