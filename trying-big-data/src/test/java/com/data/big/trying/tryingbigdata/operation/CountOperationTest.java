@@ -45,8 +45,8 @@ public class CountOperationTest {
         Double response = operation.process(mock);
 
         assertEquals(3L, response);
-        verify(repository, times(0)).countByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
-        verify(repository, times(1)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(0)).countByCreatedAtBetween(mock.fromAsMillis(), mock.toAsMillis());
+        verify(repository, times(1)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.fromAsMillis(), mock.toAsMillis());
     }
 
     @Test
@@ -57,8 +57,8 @@ public class CountOperationTest {
         Double response = operation.process(mock);
 
         assertEquals(5L, response);
-        verify(repository, times(1)).countByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
-        verify(repository, times(0)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(1)).countByCreatedAtBetween(mock.fromAsMillis(), mock.toAsMillis());
+        verify(repository, times(0)).countByUserIdAndCreatedAtBetween(mock.getUserId(), mock.fromAsMillis(), mock.toAsMillis());
     }
 
     @Test

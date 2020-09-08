@@ -20,9 +20,9 @@ public class AverageOperation implements Operation {
         List<Temperature> temperatures = null;
 
         if(request.getUserId() != null) {
-            temperatures = repository.findAllByUserIdAndCreatedAtBetween(request.getUserId(), request.getFromAsMillis(), request.getToAsMillis());
+            temperatures = repository.findAllByUserIdAndCreatedAtBetween(request.getUserId(), request.fromAsMillis(), request.toAsMillis());
         } else {
-            temperatures = repository.findAllByCreatedAtBetween(request.getFromAsMillis(), request.getToAsMillis());
+            temperatures = repository.findAllByCreatedAtBetween(request.fromAsMillis(), request.toAsMillis());
         }
 
         return temperatures

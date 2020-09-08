@@ -54,8 +54,8 @@ public class AverageOperationTest {
         Double response = operation.process(mock);
 
         assertEquals(expectedResponse, response);
-        verify(repository, times(0)).findAllByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
-        verify(repository, times(1)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(0)).findAllByCreatedAtBetween(mock.fromAsMillis(), mock.toAsMillis());
+        verify(repository, times(1)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.fromAsMillis(), mock.toAsMillis());
     }
 
     @ParameterizedTest
@@ -67,8 +67,8 @@ public class AverageOperationTest {
         Double response = operation.process(mock);
 
         assertEquals(expectedResponse, response);
-        verify(repository, times(1)).findAllByCreatedAtBetween(mock.getFromAsMillis(), mock.getToAsMillis());
-        verify(repository, times(0)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.getFromAsMillis(), mock.getToAsMillis());
+        verify(repository, times(1)).findAllByCreatedAtBetween(mock.fromAsMillis(), mock.toAsMillis());
+        verify(repository, times(0)).findAllByUserIdAndCreatedAtBetween(mock.getUserId(), mock.fromAsMillis(), mock.toAsMillis());
     }
 
     @Test
