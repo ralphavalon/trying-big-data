@@ -33,6 +33,8 @@
 
 <details>
 <summary>PlantUML Code</summary>
+
+```
 @startuml
 database MongoDB
 node Trying_IOT
@@ -60,6 +62,8 @@ skinparam component {
     backgroundColor Aqua
 }
 @enduml
+```
+
 </details>
 
 # How To Start
