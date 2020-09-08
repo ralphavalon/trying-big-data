@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -19,6 +21,11 @@ public class TryingIotApplication {
 	private String url;
 
 	private String clientId = UUID.randomUUID().toString();
+
+    @PostConstruct
+    private void config() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TryingIotApplication.class, args);

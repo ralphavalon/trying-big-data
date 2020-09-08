@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Slf4j
 @Component
 public class SenderJob {
@@ -25,8 +28,10 @@ public class SenderJob {
 
     @Scheduled(fixedDelayString = "${delay-in-milliseconds}")
     public void execute() {
-        String content = "{ \"temperature\": \"##\"}";
-        content = content.replace("##", String.valueOf(getRandomIntegerBetweenRange(30, 40)));
+        String content = "{ \"userId\": \"#userId#\", \"temperature\": #temperature#, \"createdAt\": #createdAt# }";
+        content = content.replace("#temperature#", String.valueOf(getRandomIntegerBetweenRange(30, 40)));
+        content = content.replace("#userId#", mqttClient.getClientId());
+        content = content.replace("#createdAt#", String.valueOf(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()));
 
         try {
             connect();
