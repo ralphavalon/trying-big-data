@@ -40,7 +40,7 @@ services:
       - "1883:1883"
 
   kafka-connect:
-    image: confluentinc/cp-kafka-connect:5.5.1
+    image: confluentinc/cp-kafka-connect-base:5.5.1
     depends_on:
       - kafka
     container_name: kafka-connect
@@ -89,7 +89,6 @@ services:
   iot:
     build:
       context: ./trying-iot
-    container_name: iot
     depends_on:
       - kafka
       - kafka-connect
@@ -97,3 +96,16 @@ services:
       - mongo-db
     environment:
       SPRING_APPLICATION_JSON: '{"mqtt": {"url": "tcp://mosquitto:1883"}}'
+
+  big-data:
+    build:
+      context: ./trying-big-data
+    container_name: big-data
+    depends_on:
+      - mongo-db
+    ports:
+      - 8080:8080
+    expose:
+      - "8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{"spring": {"data": {"mongodb": {"host": "mongo-db"}}}}'
