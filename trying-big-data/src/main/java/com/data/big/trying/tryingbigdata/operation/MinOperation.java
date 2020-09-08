@@ -3,6 +3,7 @@ package com.data.big.trying.tryingbigdata.operation;
 import com.data.big.trying.tryingbigdata.controller.request.TemperatureSearchRequest;
 import com.data.big.trying.tryingbigdata.domain.SearchOperation;
 import com.data.big.trying.tryingbigdata.domain.Temperature;
+import com.data.big.trying.tryingbigdata.domain.exception.NoDataFound;
 import com.data.big.trying.tryingbigdata.repository.TemperatureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class MinOperation implements Operation {
         }
 
         return Double.valueOf(temperatures
-                .stream().min((t1, t2) -> t1.getValue().compareTo(t2.getValue())).get().getValue());
+                .stream().min((t1, t2) -> t1.getValue().compareTo(t2.getValue())).orElseThrow(NoDataFound::new).getValue());
     }
 
     @Override
