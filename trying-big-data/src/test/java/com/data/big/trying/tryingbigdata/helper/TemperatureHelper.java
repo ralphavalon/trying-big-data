@@ -1,15 +1,14 @@
 package com.data.big.trying.tryingbigdata.helper;
 
-import com.data.big.trying.tryingbigdata.domain.Temperature;
+import com.data.big.trying.tryingbigdata.domain.IotDevice;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class TemperatureHelper {
 
-    public static List<Temperature> getTemperaturesEvenSize() {
+    public static List<IotDevice> getTemperaturesEvenSize() {
         return Arrays.asList(
                 temperature(30),
                 temperature(35),
@@ -20,7 +19,7 @@ public class TemperatureHelper {
         );
     }
 
-    public static List<Temperature> getTemperaturesOddSize() {
+    public static List<IotDevice> getTemperaturesOddSize() {
         return Arrays.asList(
                 temperature(30),
                 temperature(33),
@@ -30,8 +29,8 @@ public class TemperatureHelper {
         );
     }
 
-    private static Temperature temperature(Integer value) {
-        return Temperature.builder()
+    private static IotDevice temperature(Integer value) {
+        return IotDevice.builder()
             .userId("userId")
             .value(value)
             .type("THERMOSTAT")

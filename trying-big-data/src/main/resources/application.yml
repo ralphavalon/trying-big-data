@@ -1,13 +1,15 @@
-spring.data.mongodb.host: localhost
-spring.data.mongodb.database: test
-spring.data.mongodb.port: 27017
-
 spring:
+    main:
+        allow-bean-definition-overriding: true
     rabbitmq:
         host: localhost
         port: 5672
         username: rabbit_user
         password: rabbit_pass
+    datasource:
+        url: jdbc:postgresql://localhost:5432/iot
+        username: postgres_user
+        password: postgres_pass
 
 rabbitmq:
     queue-name: iot_queue

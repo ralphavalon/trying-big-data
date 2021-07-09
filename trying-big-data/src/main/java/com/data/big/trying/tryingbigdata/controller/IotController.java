@@ -1,7 +1,7 @@
 package com.data.big.trying.tryingbigdata.controller;
 
 import com.data.big.trying.tryingbigdata.amqp.IotAMQP;
-import com.data.big.trying.tryingbigdata.controller.request.AddTemperatureRequest;
+import com.data.big.trying.tryingbigdata.controller.request.AddIotDeviceRequest;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,8 @@ public class IotController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void addTemperature(@Valid @RequestBody AddTemperatureRequest request) throws Exception {
-        amqpClient.send(request.toTemperature());
+    public void addTemperature(@Valid @RequestBody AddIotDeviceRequest request) throws Exception {
+        amqpClient.send(request.toIotDevice());
     }
 
 }

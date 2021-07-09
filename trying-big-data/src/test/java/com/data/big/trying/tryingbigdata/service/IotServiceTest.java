@@ -2,9 +2,9 @@ package com.data.big.trying.tryingbigdata.service;
 
 import static org.mockito.Mockito.verify;
 
-import com.data.big.trying.tryingbigdata.domain.Temperature;
+import com.data.big.trying.tryingbigdata.domain.IotDevice;
 import com.data.big.trying.tryingbigdata.helper.TemperatureHelper;
-import com.data.big.trying.tryingbigdata.repository.TemperatureRepository;
+import com.data.big.trying.tryingbigdata.repository.IotRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +13,22 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TemperatureService.class })
-public class TemperatureServiceTest {
+@SpringBootTest(classes = { IotService.class })
+public class IotServiceTest {
 
     @Autowired
-    TemperatureService service;
+    IotService service;
 
     @MockBean
-    TemperatureRepository repository;
+    IotRepository repository;
 
     @Test
     public void testAddTemperature() {
-        Temperature temperature = TemperatureHelper.getTemperaturesEvenSize().get(0);
+        IotDevice iotDevice = TemperatureHelper.getTemperaturesEvenSize().get(0);
 
-        service.addTemperature(temperature);
+        service.addTemperature(iotDevice);
 
-        verify(repository).save(temperature);
+        verify(repository).save(iotDevice);
     }
 
 }

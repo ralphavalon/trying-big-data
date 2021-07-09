@@ -1,7 +1,6 @@
 package com.data.big.trying.tryingbigdata.controller.request;
 
-import com.data.big.trying.tryingbigdata.domain.Temperature;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.data.big.trying.tryingbigdata.domain.IotDevice;
 import java.time.LocalDateTime;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-public class AddTemperatureRequest {
+public class AddIotDeviceRequest {
 
     @NotBlank
     private String userId;
@@ -24,8 +23,8 @@ public class AddTemperatureRequest {
     @NotNull
     private LocalDateTime createdAt;
 
-    public Temperature toTemperature() {
-        return Temperature.builder()
+    public IotDevice toIotDevice() {
+        return IotDevice.builder()
             .userId(userId)
             .type(type)
             .value(value)
