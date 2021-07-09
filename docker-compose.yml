@@ -7,6 +7,10 @@
         POSTGRES_USER: postgres_user
         POSTGRES_PASSWORD: postgres_pass
         POSTGRES_DB: iot
+      ports:
+        - '5432:5432'
+      volumes:
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   
     rabbitmq:
       image: rabbitmq:3-management
@@ -39,4 +43,4 @@
       expose:
         - "8080"
       environment:
-        SPRING_APPLICATION_JSON: '{"spring": {"data": {"mongodb": {"host": "mongo-db"}}}}'
+        SPRING_APPLICATION_JSON: '{"spring": {"rabbitmq": {"host": "rabbitmq"}}, { "datasource": {"url": "jdbc:postgres://postgres/iot"}}}'
