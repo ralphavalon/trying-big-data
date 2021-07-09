@@ -1,0 +1,15 @@
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    rabbitmq:
+        host: rabbitmq
+        port: 5672
+        username: rabbit_user
+        password: rabbit_pass
+    datasource:
+        url: jdbc:postgresql://postgres:5432/iot
+        username: postgres_user
+        password: postgres_pass
+
+rabbitmq:
+    queue-name: iot_queue
