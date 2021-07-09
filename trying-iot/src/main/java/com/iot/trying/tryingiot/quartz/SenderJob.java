@@ -35,7 +35,7 @@ public class SenderJob {
         for (IotDevice device : devices) {
             String content = mapper.writeValueAsString(device);
             log.info("Publishing message: " + content);
-            apiClient.addTemperature(content);
+            apiClient.addIotDevice(content);
             log.info("Message published");
         }
     }

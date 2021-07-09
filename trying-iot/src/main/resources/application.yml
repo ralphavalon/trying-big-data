@@ -1,4 +1,4 @@
 delay-in-milliseconds: 1000
 
-temperature:
-  url: http://big-data:8080
+iot-device:
+  url: http://localhost:8080
