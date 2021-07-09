@@ -35,7 +35,7 @@ public class SearchRequest {
             throw new ValidationException("Cannot have 'from' without 'to' and vice versa");
         }
 
-        if(from.isAfter(to)) {
+        if(from != null && to != null && from.isAfter(to)) {
             throw new ValidationException("'from' cannot be greater than 'to'");
         }
     }
