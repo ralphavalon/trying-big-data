@@ -71,3 +71,5 @@ skinparam component {
 `docker-compose up -d --scale iot=3`
 
 * When the application starts, you can go to http://localhost:8080/ and try some requests using the Swagger.
+
+* Date format example: '2021-07-09T21:53:56'
