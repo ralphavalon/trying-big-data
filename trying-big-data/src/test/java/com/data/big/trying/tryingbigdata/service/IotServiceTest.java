@@ -3,7 +3,8 @@ package com.data.big.trying.tryingbigdata.service;
 import static org.mockito.Mockito.verify;
 
 import com.data.big.trying.tryingbigdata.domain.IotDevice;
-import com.data.big.trying.tryingbigdata.helper.TemperatureHelper;
+import com.data.big.trying.tryingbigdata.helper.IotDeviceHelper;
+import com.data.big.trying.tryingbigdata.operation.Operation;
 import com.data.big.trying.tryingbigdata.repository.IotRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,11 +23,14 @@ public class IotServiceTest {
     @MockBean
     IotRepository repository;
 
-    @Test
-    public void testAddTemperature() {
-        IotDevice iotDevice = TemperatureHelper.getTemperaturesEvenSize().get(0);
+    @MockBean
+    private Operation operation;
 
-        service.addTemperature(iotDevice);
+    @Test
+    public void testAddIotDevice() {
+        IotDevice iotDevice = IotDeviceHelper.getValuesEvenSize().get(0);
+
+        service.addIotDevice(iotDevice);
 
         verify(repository).save(iotDevice);
     }

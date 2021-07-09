@@ -20,7 +20,7 @@ public class IotController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void addTemperature(@Valid @RequestBody AddIotDeviceRequest request) throws Exception {
+    public void addIotDevice(@Valid @RequestBody AddIotDeviceRequest request) throws Exception {
         amqpClient.send(request.toIotDevice());
     }
 

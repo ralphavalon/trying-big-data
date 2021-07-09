@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.data.big.trying.tryingbigdata.amqp.IotAMQP;
 import com.data.big.trying.tryingbigdata.domain.IotDevice;
 import com.data.big.trying.tryingbigdata.helper.JsonHelper;
 import com.data.big.trying.tryingbigdata.service.IotService;
@@ -19,23 +20,26 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(SearchController.class)
-public class SearchControllerTest {
+@WebMvcTest(IotController.class)
+public class IotControllerTest {
 
     @MockBean
     IotService service;
+
+    @MockBean
+    IotAMQP amqp;
 
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void shouldAddTemperature() throws Exception {
+    public void shouldAddIotDevice() throws Exception {
         String request = JsonHelper.loadTemperatureRequest("add");
 
-        mvc.perform(post("/temperature").contentType(MediaType.APPLICATION_JSON_VALUE).content(request))
+        mvc.perform(post("/").contentType(MediaType.APPLICATION_JSON_VALUE).content(request))
             .andExpect(status().isAccepted());
 
-        verify(service, times(1)).addTemperature(any(IotDevice.class));
+        verify(amqp, times(1)).send(any(IotDevice.class));
     }
 
 }

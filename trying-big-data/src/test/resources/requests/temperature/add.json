@@ -1,6 +1,6 @@
 {
-  "temperature": 30,
-  "user_id": "userId",
-  "scale": "Celsius",
-  "created_at": 1594253058
+  "type": "thermostat",
+  "value": 30,
+  "userId": "userId",
+  "createdAt": "2021-07-09T17:10:56.024Z"
 }
