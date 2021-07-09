@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MaxOperation implements Operation {
+public class CountOperation implements Operation {
 
     @Autowired
     private IotSearchRepository searchRepository;
@@ -20,12 +20,12 @@ public class MaxOperation implements Operation {
     @Override
     public Map<String, BigDecimal> process(SearchRequest request) {
         Map<String, BigDecimal> result = new HashMap<>();
-        searchRepository.process("SELECT type, MAX(value) AS value", request, typeAndValue(result));
+        searchRepository.process("SELECT type, COUNT(*) AS value", request, typeAndValue(result));
         return result;
     }
 
     @Override
     public SearchOperation getSearchOperation() {
-        return SearchOperation.MAX;
+        return SearchOperation.COUNT;
     }
 }
