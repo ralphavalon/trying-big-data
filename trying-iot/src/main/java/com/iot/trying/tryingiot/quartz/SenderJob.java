@@ -1,8 +1,16 @@
 package com.iot.trying.tryingiot.quartz;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iot.trying.tryingiot.client.ApiClient;
+import com.iot.trying.tryingiot.model.CarFuelDevice;
+import com.iot.trying.tryingiot.model.HeartRateDevice;
+import com.iot.trying.tryingiot.model.IotDevice;
+import com.iot.trying.tryingiot.model.IotDevice.Type;
+import com.iot.trying.tryingiot.model.ThermostatDevice;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +24,32 @@ public class SenderJob {
     private String clientId = UUID.randomUUID().toString();
 
     @Autowired
+    private ObjectMapper mapper;
+
+    @Autowired
     private ApiClient apiClient;
 
     @Scheduled(fixedDelayString = "${delay-in-milliseconds}")
-    public void execute() {
-        String content = "{ \"userId\": \"#userId#\", \"temperature\": #temperature#, \"scale\": \"#scale#\", \"createdAt\": #createdAt# }";
-        content = content.replace("#temperature#", String.valueOf(getRandomIntegerBetweenRange(30, 40)));
-        content = content.replace("#userId#", clientId);
-        content = content.replace("#scale#", "Celsius");
-        content = content.replace("#createdAt#", String.valueOf(LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli()));
-
-        log.info("Publishing message: " + content);
-        apiClient.addTemperature(content);
-        log.info("Message published");
+    public void execute() throws Exception {
+        List<IotDevice> devices = Arrays.asList(getTemperature(), getHeartRate(), getCarFuel());
+        for (IotDevice device : devices) {
+            String content = mapper.writeValueAsString(device);
+            log.info("Publishing message: " + content);
+            apiClient.addTemperature(content);
+            log.info("Message published");
+        }
     }
 
-    private int getRandomIntegerBetweenRange(int min, int max){
-        return (int) ((Math.random()*((max-min)+1))+min);
+    private IotDevice getTemperature() {
+        return new ThermostatDevice(clientId, LocalDateTime.now());
+    }
+
+    private IotDevice getHeartRate() {
+        return new HeartRateDevice(clientId, LocalDateTime.now());
+    }
+
+    private IotDevice getCarFuel() {
+        return new CarFuelDevice(clientId, LocalDateTime.now());
     }
 
 }
