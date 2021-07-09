@@ -31,6 +31,11 @@ public class TemperatureHelper {
     }
 
     private static Temperature temperature(Integer value) {
-        return new Temperature("userId", value, new Date().toInstant().toEpochMilli());
+        return Temperature.builder()
+            .userId("userId")
+            .value(value)
+            .scale("Celsius")
+            .createdAt(new Date().toInstant().toEpochMilli())
+            .build();
     }
 }

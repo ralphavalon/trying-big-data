@@ -43,4 +43,14 @@ public class TemperatureControllerTest {
         verify(service, times(1)).processSearch(any(TemperatureSearchRequest.class));
     }
 
+    @Test
+    public void shouldAddTemperature() throws Exception {
+        String request = JsonHelper.loadTemperatureRequest("add");
+
+        mvc.perform(post("/temperature").contentType(MediaType.APPLICATION_JSON_VALUE).content(request))
+            .andExpect(status().isAccepted());
+
+        verify(service, times(1)).addTemperature(any(Temperature.class));
+    }
+
 }

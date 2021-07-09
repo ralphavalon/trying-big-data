@@ -3,10 +3,14 @@ package com.data.big.trying.tryingbigdata.service;
 import com.data.big.trying.tryingbigdata.config.OperationConfig;
 import com.data.big.trying.tryingbigdata.controller.request.TemperatureSearchRequest;
 import com.data.big.trying.tryingbigdata.domain.SearchOperation;
+import com.data.big.trying.tryingbigdata.domain.Temperature;
+import com.data.big.trying.tryingbigdata.helper.TemperatureHelper;
+import com.data.big.trying.tryingbigdata.repository.TemperatureRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,6 +26,9 @@ public class TemperatureServiceTest {
     @Autowired
     TemperatureService service;
 
+    @MockBean
+    TemperatureRepository repository;
+
     @SpyBean
     MockOperation mockOperation;
 
@@ -36,6 +43,15 @@ public class TemperatureServiceTest {
 
         assertEquals(0L, response);
         verify(mockOperation).process(mock);
+    }
+
+    @Test
+    public void testAddTemperature() {
+        Temperature temperature = TemperatureHelper.getTemperaturesEvenSize().get(0);
+
+        service.addTemperature(temperature);
+
+        verify(repository).save(temperature);
     }
 
 }
