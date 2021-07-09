@@ -1,11 +1,11 @@
 package com.data.big.trying.tryingbigdata.domain;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "temperature")
 @Getter
@@ -15,11 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Temperature {
 
     private String userId;
-    @Field("temperature")
+
+    private String type;
+
     private Integer value;
 
-    private String scale;
-
-    private Long createdAt;
+    private LocalDateTime createdAt;
 
 }

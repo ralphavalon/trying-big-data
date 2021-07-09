@@ -1,8 +1,7 @@
 package com.data.big.trying.tryingbigdata.service;
 
-import com.data.big.trying.tryingbigdata.config.OperationConfig;
-import com.data.big.trying.tryingbigdata.controller.request.TemperatureSearchRequest;
-import com.data.big.trying.tryingbigdata.domain.SearchOperation;
+import static org.mockito.Mockito.verify;
+
 import com.data.big.trying.tryingbigdata.domain.Temperature;
 import com.data.big.trying.tryingbigdata.helper.TemperatureHelper;
 import com.data.big.trying.tryingbigdata.repository.TemperatureRepository;
@@ -11,16 +10,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { TemperatureService.class, OperationConfig.class, MockOperation.class })
+@SpringBootTest(classes = { TemperatureService.class })
 public class TemperatureServiceTest {
 
     @Autowired
@@ -28,22 +21,6 @@ public class TemperatureServiceTest {
 
     @MockBean
     TemperatureRepository repository;
-
-    @SpyBean
-    MockOperation mockOperation;
-
-    @Test
-    public void testProcessSearch() {
-        TemperatureSearchRequest mock = mock(TemperatureSearchRequest.class);
-        when(mock.getSearchOperation()).thenReturn(SearchOperation.COUNT);
-        when(mock.getFrom()).thenReturn(LocalDateTime.now());
-        when(mock.getTo()).thenReturn(LocalDateTime.now().plusSeconds(1));
-
-        Double response = service.processSearch(mock);
-
-        assertEquals(0L, response);
-        verify(mockOperation).process(mock);
-    }
 
     @Test
     public void testAddTemperature() {

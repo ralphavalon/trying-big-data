@@ -34,8 +34,8 @@ public class TemperatureHelper {
         return Temperature.builder()
             .userId("userId")
             .value(value)
-            .scale("Celsius")
-            .createdAt(new Date().toInstant().toEpochMilli())
+            .type("THERMOSTAT")
+            .createdAt(LocalDateTime.now())
             .build();
     }
 }
