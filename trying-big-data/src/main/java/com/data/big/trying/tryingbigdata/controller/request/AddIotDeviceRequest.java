@@ -6,6 +6,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Getter
 @Slf4j
@@ -21,6 +23,7 @@ public class AddIotDeviceRequest {
     private String type;
 
     @NotNull
+    @DateTimeFormat(iso = ISO.DATE_TIME)
     private LocalDateTime createdAt;
 
     public IotDevice toIotDevice() {
