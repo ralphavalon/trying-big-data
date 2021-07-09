@@ -3,6 +3,7 @@
   services:
     postgres:
       image: postgres
+      container_name: postgres
       environment:
         POSTGRES_USER: postgres_user
         POSTGRES_PASSWORD: postgres_pass
@@ -11,6 +12,11 @@
         - '5432:5432'
       volumes:
         - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      healthcheck:
+        test: [ "CMD", "pg_isready", "-q", "-d", "iot", "-U", "postgres_user" ]
+        interval: 10s
+        timeout: 5s
+        retries: 30
   
     rabbitmq:
       image: rabbitmq:3-management
@@ -22,25 +28,38 @@
         - '5672:5672'
         - '15672:15672'
       healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
         interval: 15s
-        timeout: 10s
-        retries: 30
+        timeout: 5s
+        retries: 10
   
     iot:
       build:
         context: ./trying-iot
+      container_name: iot
+      depends_on:
+        big-data:
+          condition: service_healthy
+      environment:
+        SPRING_PROFILES_ACTIVE: docker
   
     big-data:
       build:
         context: ./trying-big-data
       container_name: big-data
       depends_on:
-        - postgres
-        - rabbitmq
+        postgres:
+          condition: service_healthy
+        rabbitmq:
+          condition: service_healthy
       ports:
         - 8080:8080
       expose:
         - "8080"
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:8080"]
+        interval: 15s
+        timeout: 10s
+        retries: 30
       environment:
-        SPRING_APPLICATION_JSON: '{"spring": {"rabbitmq": {"host": "rabbitmq"}}, { "datasource": {"url": "jdbc:postgres://postgres/iot"}}}'
+        SPRING_PROFILES_ACTIVE: docker

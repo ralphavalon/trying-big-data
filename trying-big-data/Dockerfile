@@ -46,4 +46,6 @@ VOLUME /tmp
 
 COPY --from=builder /app/target/*.jar app.jar
 
+RUN apt-get update && apt-get install -y curl
+
 ENTRYPOINT [ "sh", "-c", "java -jar /app.jar" ]

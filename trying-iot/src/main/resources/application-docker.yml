@@ -1,0 +1,4 @@
+delay-in-milliseconds: 1000
+
+iot-device:
+  url: http://big-data:8080
