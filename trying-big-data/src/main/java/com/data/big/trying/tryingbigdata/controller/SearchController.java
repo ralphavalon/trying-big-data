@@ -17,6 +17,7 @@ public class SearchController {
 
     @GetMapping("/search")
     public SearchResponse search(@Valid @NotNull SearchRequest request) {
+        request.validate();
         return new SearchResponse(service.processSearch(request));
     }
 

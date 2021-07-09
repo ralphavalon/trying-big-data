@@ -1,6 +1,7 @@
 package com.data.big.trying.tryingbigdata.controller.handler;
 
 import com.data.big.trying.tryingbigdata.domain.exception.NoDataFound;
+import com.data.big.trying.tryingbigdata.domain.exception.ValidationException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,6 +52,14 @@ public class GlobalExceptionHandler {
         var error = "Invalid Request";
         var message = "Invalid Field(s)";
         return errorMessage(error, message, invalidFieldMessage);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    public ErrorMessage validationException(ValidationException e) {
+        var error = "Invalid Request";
+        var message = e.getMessage();
+        return errorMessage(error, message);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
