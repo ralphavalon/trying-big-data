@@ -3,5 +3,4 @@ CREATE TABLE IF NOT EXISTS iot_device (id serial PRIMARY KEY, created_at TIMESTA
 CREATE INDEX by_created_at ON iot_device(created_at);
 CREATE INDEX by_user_id_and_created_at ON iot_device(user_id, created_at);
 CREATE INDEX by_type_and_created_at ON iot_device(type, created_at);
-CREATE INDEX by_value_and_created_at ON iot_device(value, created_at);
-CREATE INDEX by_value_and_type_and_created_at ON iot_device(value, type, created_at);
+CREATE INDEX by_type ON iot_device(type);
